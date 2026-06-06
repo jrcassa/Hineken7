@@ -10,13 +10,10 @@ import {
 import { BinaryNode, jidNormalizedUser, S_WHATSAPP_NET } from '../WABinary'
 import { getBinaryNodeChild } from '../WABinary/generic-utils'
 import { makeMessagesRecvSocket } from './messages-recv'
-import { makeNewsletterSocket } from './newsletter'
 
- export const makeBusinessSocket = (config: SocketConfig) => {
-	const baseSock = makeMessagesRecvSocket(config)
-	const sock = makeNewsletterSocket(baseSock as any)
-	const { authState, query } = sock
-	const { waUploadToServer } = baseSock
+export const makeBusinessSocket = (config: SocketConfig) => {
+	const sock = makeMessagesRecvSocket(config)
+	const { authState, query, waUploadToServer } = sock
 
 	const getCatalog = async ({ jid, limit, cursor }: GetCatalogOptions) => {
 		jid = jid || authState.creds.me?.id
